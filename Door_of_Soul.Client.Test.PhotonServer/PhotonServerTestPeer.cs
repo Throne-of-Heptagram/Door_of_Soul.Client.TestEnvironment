@@ -16,6 +16,7 @@ namespace Door_of_Soul.Client.Test.PhotonServer
 
         protected override void OnConnectionEstablished(object responseObject)
         {
+            TestClientApplication.ConnectedPeerCounter++;
             TestClientApplication.Log.Info($"Server ConnectionEstablished");
         }
 

@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Threading;
+using Door_of_Soul.Core.Client;
 
 namespace Door_of_Soul.Client.Test.PhotonServer
 {
@@ -42,6 +43,7 @@ namespace Door_of_Soul.Client.Test.PhotonServer
                     errorMessage = $"Connect {TestEnvironmentConfiguration.Instance.ProxyServerApplicationNames[i]} Failed";
                     return false;
                 }
+                Thread.Sleep(10);
             }
             errorMessage = "";
             return true;
@@ -89,6 +91,7 @@ namespace Door_of_Soul.Client.Test.PhotonServer
 
         public override bool SetupEnvironment(out string errorMessage)
         {
+            VirtualSystem.Initialize(new ClientSystem());
             ScenariosPool.Initialize(new RegisterScenariosPool());
             errorMessage = "";
             return true;

@@ -58,8 +58,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChatScenariosPool.cs" />
+    <Compile Include="LoginScenariosPool.cs" />
+    <Compile Include="MoveScenariosPool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegisterScenariosPool.cs" />
+    <Compile Include="RenameScenariosPool.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Door_of_Soul.Client.TestEnvironment\Door_of_Soul.Client.TestEnvironment.csproj">

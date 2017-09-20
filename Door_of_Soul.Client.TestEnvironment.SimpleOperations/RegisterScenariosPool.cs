@@ -1,6 +1,5 @@
-﻿using System;
+﻿using Door_of_Soul.Core.Client;
 using System.Collections.Generic;
-using Door_of_Soul.Core.Protocol;
 
 namespace Door_of_Soul.Client.TestEnvironment.SimpleOperations
 {
@@ -11,13 +10,15 @@ namespace Door_of_Soul.Client.TestEnvironment.SimpleOperations
 
         public RegisterScenariosPool()
         {
-            scenarios.Add(Register);
-        }
-
-        private OperationReturnCode Register(out string errorMessage)
-        {
-            errorMessage = "";
-            return OperationReturnCode.Successiful;
+            for(int i = 0; i < 100; i++)
+            {
+                int id = i;
+                scenarios.Add((out string errorMessage) => 
+                {
+                    VirtualSystem.Instance.Register($"TestAnswer{id}", $"TestAnswer{id}", out errorMessage);
+                    return VirtualSystem.Instance.Register($"TestAnswer{id}", $"TestAnswer{id}", out errorMessage);
+                });
+            }
         }
     }
 }

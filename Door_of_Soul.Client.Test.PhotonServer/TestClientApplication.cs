@@ -2,12 +2,27 @@
 using ExitGames.Logging;
 using Photon.SocketServer;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Door_of_Soul.Client.Test.PhotonServer
 {
     public class TestClientApplication : ApplicationBase
     {
         public static readonly ILogger Log = LogManager.GetCurrentClassLogger();
+        private static int connectedPeerCounter = 0;
+        private static object connectedPeerCounterLock = new object();
+        public static int ConnectedPeerCounter
+        {
+            get { return connectedPeerCounter; }
+            set
+            {
+                lock(connectedPeerCounterLock)
+                {
+                    connectedPeerCounter++;
+                }
+            }
+        }
 
         protected override PeerBase CreatePeer(InitRequest initRequest)
         {
@@ -27,10 +42,18 @@ namespace Door_of_Soul.Client.Test.PhotonServer
                 Log.Fatal(errorMessage);
                 TearDown();
             }
-            foreach(string operationResult in ClientTestEnvironment.Instance.StartExecuteScenarios())
+
+            Task.Run(() => 
             {
-                Log.Info($"DoScenarios {operationResult}");
-            }
+                while (ConnectedPeerCounter != TestEnvironmentConfiguration.Instance.TotalProxyServerConnectionCount)
+                {
+                    Thread.Sleep(50);
+                }
+                foreach (string operationResult in ClientTestEnvironment.Instance.StartExecuteScenarios())
+                {
+                    Log.Info($"DoScenarios {operationResult}");
+                }
+            });
         }
 
         protected override void TearDown()
