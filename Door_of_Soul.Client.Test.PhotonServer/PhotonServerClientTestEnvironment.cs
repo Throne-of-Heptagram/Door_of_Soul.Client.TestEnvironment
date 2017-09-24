@@ -42,7 +42,6 @@ namespace Door_of_Soul.Client.Test.PhotonServer
                     errorMessage = $"Connect {TestEnvironmentConfiguration.Instance.LoginServerApplicationNames[i]} Failed";
                     return false;
                 }
-                Thread.Sleep(10);
             }
             errorMessage = "";
             return true;
@@ -85,7 +84,11 @@ namespace Door_of_Soul.Client.Test.PhotonServer
 
         public override void TearDown()
         {
-
+            foreach(var peer in peers)
+            {
+                peer.Disconnect();
+            }
+            peers.Clear();
         }
 
         public override bool SetupEnvironment(out string errorMessage)

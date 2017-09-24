@@ -50,6 +50,7 @@ namespace Door_of_Soul.Client.Test.PhotonServer
                 {
                     Thread.Sleep(50);
                 }
+                Log.Info($"Total {ConnectedPeerCounter} Peers connected");
                 foreach (string operationResult in ClientTestEnvironment.Instance.StartExecuteScenarios())
                 {
 

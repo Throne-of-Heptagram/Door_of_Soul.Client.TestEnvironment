@@ -10,9 +10,9 @@ namespace Door_of_Soul.Client.Test.PhotonServer
             Instance = instance;
         }
         public int TotalLoginServerConnectionCount { get; set; } = 2;
-        public List<string> LoginServerAddresses { get; set; } = new List<string> { "127.0.0.1" };
-        public List<int> LoginServerPorts { get; set; } = new List<int> { 10028 };
-        public List<string> LoginServerApplicationNames { get; set; } = new List<string> { "DS.DevServer.LoginServer" };
+        public List<string> LoginServerAddresses { get; set; } = new List<string>();
+        public List<int> LoginServerPorts { get; set; } = new List<int>();
+        public List<string> LoginServerApplicationNames { get; set; } = new List<string>();
         public bool IsTurnOn { get; set; } = false;
     }
 }
