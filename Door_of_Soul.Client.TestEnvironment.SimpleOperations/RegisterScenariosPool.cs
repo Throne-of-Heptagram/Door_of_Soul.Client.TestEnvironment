@@ -10,12 +10,9 @@ namespace Door_of_Soul.Client.TestEnvironment.SimpleOperations
 
         public RegisterScenariosPool()
         {
-            for(int i = 0; i < 100; i++)
             {
-                int id = i;
                 scenarios.Add((out string errorMessage) => 
                 {
-                    VirtualSystem.Instance.Register($"TestAnswer{id}", $"TestAnswer{id}", out errorMessage);
                     return VirtualSystem.Instance.Register($"TestAnswer{id}", $"TestAnswer{id}", out errorMessage);
                 });
             }

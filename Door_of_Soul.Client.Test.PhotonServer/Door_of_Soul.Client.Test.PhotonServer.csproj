@@ -36,8 +36,9 @@
     <Reference Include="Door_of_Soul.Communication">
       <HintPath>..\ReferenceDlls\Door_of_Soul.Communication.dll</HintPath>
     </Reference>
-    <Reference Include="Door_of_Soul.Communication.Infrastructure.Client">
-      <HintPath>..\ReferenceDlls\Door_of_Soul.Communication.Infrastructure.Client.dll</HintPath>
+    <Reference Include="Door_of_Soul.Communication.Client, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ReferenceDlls\Door_of_Soul.Communication.Client.dll</HintPath>
     </Reference>
     <Reference Include="Door_of_Soul.Communication.Protocol.External">
       <HintPath>..\ReferenceDlls\Door_of_Soul.Communication.Protocol.External.dll</HintPath>
@@ -92,4 +93,7 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy $(ProjectDir)bin\Debug\*.dll W:\Server\Photon-OnPremise-Server-SDK_v4-0-29-11263\deploy\Door_of_Soul.DevelopmentServer\ClientTestServer\bin /S /Y /I</PostBuildEvent>
+  </PropertyGroup>
 </Project>

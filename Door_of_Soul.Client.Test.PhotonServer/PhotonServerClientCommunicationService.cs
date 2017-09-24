@@ -9,24 +9,14 @@ namespace Door_of_Soul.Client.Test.PhotonServer
 {
     class PhotonServerClientCommunicationService : CommunicationService
     {
-        public override bool ConnectProxyServer(string serverAddress, int port, string applicationName)
+        public override bool ConnectServer(string serverAddress, int port, string applicationName)
         {
             throw new NotImplementedException("Should be done in SetupCommunication");
         }
 
-        public override bool ConnectSceneServer(string serverAddress, int port, string applicationName)
+        public override void DisconnectServer(string applicationName)
         {
-            throw new NotImplementedException();
-        }
-
-        public override void DisconnectSceneServer(string sceneServerName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void DisconnectProxyServer()
-        {
-            foreach(var peer in PhotonServerClientTestEnvironment.AllPeers)
+            foreach (var peer in PhotonServerClientTestEnvironment.AllPeers)
             {
                 peer.Disconnect();
             }
@@ -47,11 +37,6 @@ namespace Door_of_Soul.Client.Test.PhotonServer
             throw new NotImplementedException();
         }
 
-        public override bool FindSceneServerName(int sceneId, out string sceneServerName)
-        {
-            throw new NotImplementedException();
-        }
-
         public override bool FindSoul(int soulId, out VirtualSoul soul)
         {
             throw new NotImplementedException();
@@ -62,17 +47,12 @@ namespace Door_of_Soul.Client.Test.PhotonServer
             throw new NotImplementedException();
         }
 
-        public override bool IsSceneServerConnected(string sceneServerName)
-        {
-            throw new NotImplementedException();
-        }
-
         public override void Process()
         {
             throw new NotImplementedException();
         }
 
-        public override void SendProxyServerOperation(DeviceOperationCode operationCode, Dictionary<byte, object> parameters)
+        public override void SendOperation(string applicationName, DeviceOperationCode operationCode, Dictionary<byte, object> parameters)
         {
             OperationRequest request = new OperationRequest
             {
@@ -80,11 +60,6 @@ namespace Door_of_Soul.Client.Test.PhotonServer
                 Parameters = parameters
             };
             PhotonServerClientTestEnvironment.RandomPeer.SendOperationRequest(request, new SendParameters());
-        }
-
-        public override void SendSceneServerOperation(string sceneServerName, DeviceOperationCode operationCode, Dictionary<byte, object> parameters)
-        {
-            throw new NotImplementedException();
         }
     }
 }

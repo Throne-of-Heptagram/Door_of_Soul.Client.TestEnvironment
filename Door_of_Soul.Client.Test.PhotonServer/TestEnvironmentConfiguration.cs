@@ -9,10 +9,10 @@ namespace Door_of_Soul.Client.Test.PhotonServer
         {
             Instance = instance;
         }
-        public int TotalProxyServerConnectionCount { get; set; } = 2;
-        public List<string> ProxyServerAddresses { get; set; } = new List<string> { "127.0.0.1" };
-        public List<int> ProxyServerPorts { get; set; } = new List<int> { 10027 };
-        public List<string> ProxyServerApplicationNames { get; set; } = new List<string> { "DS.DevServer.ProxyServer" };
-        public int SetupConnectionDelay { get; set; } = 20000;
+        public int TotalLoginServerConnectionCount { get; set; } = 2;
+        public List<string> LoginServerAddresses { get; set; } = new List<string> { "127.0.0.1" };
+        public List<int> LoginServerPorts { get; set; } = new List<int> { 10028 };
+        public List<string> LoginServerApplicationNames { get; set; } = new List<string> { "DS.DevServer.LoginServer" };
+        public bool IsTurnOn { get; set; } = false;
     }
 }
