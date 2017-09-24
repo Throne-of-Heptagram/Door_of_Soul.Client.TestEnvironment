@@ -2,6 +2,7 @@
 using Door_of_Soul.Client.TestEnvironment.SimpleOperations;
 using Door_of_Soul.Communication.Client;
 using Door_of_Soul.Core;
+using Door_of_Soul.Core.Client;
 using ExitGames.Logging;
 using ExitGames.Logging.Log4Net;
 using log4net.Config;
@@ -11,7 +12,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Threading;
-using Door_of_Soul.Core.Client;
 
 namespace Door_of_Soul.Client.Test.PhotonServer
 {
@@ -31,16 +31,15 @@ namespace Door_of_Soul.Client.Test.PhotonServer
         public override bool SetupCommunication(out string errorMessage)
         {
             CommunicationService.Initialize(new PhotonServerClientCommunicationService());
-            Thread.Sleep(TestEnvironmentConfiguration.Instance.SetupConnectionDelay);
-            for (int i = 0; i < TestEnvironmentConfiguration.Instance.TotalProxyServerConnectionCount; i++)
+            for (int i = 0; i < TestEnvironmentConfiguration.Instance.TotalLoginServerConnectionCount; i++)
             {
                 PhotonServerTestPeer peer = new PhotonServerTestPeer(ApplicationBase.Instance);
                 peers.Add(peer);
                 if(!peer.ConnectTcp(
-                    remoteEndPoint: new IPEndPoint(IPAddress.Parse(TestEnvironmentConfiguration.Instance.ProxyServerAddresses[i]), TestEnvironmentConfiguration.Instance.ProxyServerPorts[i]),
-                    applicationName: TestEnvironmentConfiguration.Instance.ProxyServerApplicationNames[i]))
+                    remoteEndPoint: new IPEndPoint(IPAddress.Parse(TestEnvironmentConfiguration.Instance.LoginServerAddresses[i]), TestEnvironmentConfiguration.Instance.LoginServerPorts[i]),
+                    applicationName: TestEnvironmentConfiguration.Instance.LoginServerApplicationNames[i]))
                 {
-                    errorMessage = $"Connect {TestEnvironmentConfiguration.Instance.ProxyServerApplicationNames[i]} Failed";
+                    errorMessage = $"Connect {TestEnvironmentConfiguration.Instance.LoginServerApplicationNames[i]} Failed";
                     return false;
                 }
                 Thread.Sleep(10);
@@ -55,8 +54,8 @@ namespace Door_of_Soul.Client.Test.PhotonServer
             if (GenericConfigurationLoader<TestEnvironmentConfiguration>.Load(Path.Combine(ApplicationBase.Instance.ApplicationPath, "config", "ServerEnvironment.config"), out testEnvironmentConfiguration))
             {
                 TestEnvironmentConfiguration.Initialize(testEnvironmentConfiguration);
-                errorMessage = "";
-                return true;
+                errorMessage = $"TestEnvironmentConfiguration IsTurnOn:{TestEnvironmentConfiguration.Instance.IsTurnOn}";
+                return TestEnvironmentConfiguration.Instance.IsTurnOn;
             }
             else
             {

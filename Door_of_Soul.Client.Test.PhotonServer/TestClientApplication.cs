@@ -41,17 +41,18 @@ namespace Door_of_Soul.Client.Test.PhotonServer
             {
                 Log.Fatal(errorMessage);
                 TearDown();
+                return;
             }
 
             Task.Run(() => 
             {
-                while (ConnectedPeerCounter != TestEnvironmentConfiguration.Instance.TotalProxyServerConnectionCount)
+                while (ConnectedPeerCounter != TestEnvironmentConfiguration.Instance.TotalLoginServerConnectionCount)
                 {
                     Thread.Sleep(50);
                 }
                 foreach (string operationResult in ClientTestEnvironment.Instance.StartExecuteScenarios())
                 {
-                    Log.Info($"DoScenarios {operationResult}");
+
                 }
             });
         }
